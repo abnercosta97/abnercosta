@@ -8,9 +8,9 @@ let theme = createTheme({
     secondary: {
       main: "#C5C5C5",
     },
-    /*background: {
+    background: {
       default: "#161513",
-    },*/
+    },
   },
   typography: {
     fontFamily: [
