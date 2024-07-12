@@ -1,17 +1,6 @@
 import React, { useEffect, useRef } from "react";
-//import { styled } from "@mui/material/styles";
 import { Point } from "../../types";
 import { gsap } from "gsap";
-
-/*const Background = styled("div")({
-  position: "absolute",
-  top: 0,
-  left: 0,
-  width: "100%",
-  height: "100%",
-  overflow: "hidden",
-  zIndex: -1,
-});*/
 
 const AnimatedBackground: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -21,7 +10,7 @@ const AnimatedBackground: React.FC = () => {
     originX: 0,
     originY: 0,
   });
-  const animateHeaderRef = useRef(true); // UseRef para manter o estado
+  const animateHeaderRef = useRef(true);
 
   useEffect(() => {
     const width = window.innerWidth;
@@ -157,40 +146,34 @@ const AnimatedBackground: React.FC = () => {
       initAnimation();
     }
 
-    return () => {
-      window.removeEventListener("mousemove", mouseMove);
-      window.removeEventListener("scroll", scrollCheck);
-      window.removeEventListener("resize", resize);
+    const resize = () => {
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      const canvas = canvasRef.current;
+      if (canvas) {
+        canvas.width = width;
+        canvas.height = height;
+      }
     };
-  }, []);
 
-  const resize = () => {
-    const width = window.innerWidth;
-    const height = window.innerHeight;
-    const canvas = canvasRef.current;
-    if (canvas) {
-      canvas.width = width;
-      canvas.height = height;
-    }
-  };
+    const mouseMove = (e: MouseEvent) => {
+      target.current.x =
+        e.pageX ||
+        e.clientX +
+          document.body.scrollLeft +
+          document.documentElement.scrollLeft;
+      target.current.y =
+        e.pageY ||
+        e.clientY +
+          document.body.scrollTop +
+          document.documentElement.scrollTop;
+    };
 
-  const mouseMove = (e: MouseEvent) => {
-    target.current.x =
-      e.pageX ||
-      e.clientX +
-        document.body.scrollLeft +
-        document.documentElement.scrollLeft;
-    target.current.y =
-      e.pageY ||
-      e.clientY + document.body.scrollTop + document.documentElement.scrollTop;
-  };
+    const scrollCheck = () => {
+      const height = window.innerHeight;
+      animateHeaderRef.current = document.body.scrollTop <= height;
+    };
 
-  const scrollCheck = () => {
-    const height = window.innerHeight;
-    animateHeaderRef.current = document.body.scrollTop <= height;
-  };
-
-  useEffect(() => {
     window.addEventListener("mousemove", mouseMove);
     window.addEventListener("scroll", scrollCheck);
     window.addEventListener("resize", resize);
@@ -203,9 +186,17 @@ const AnimatedBackground: React.FC = () => {
   }, []);
 
   return (
-    //<Background id="large-header">
-    <canvas ref={canvasRef} id="demo-canvas"></canvas>
-    //</Background>
+    <canvas
+      ref={canvasRef}
+      id="demo-canvas"
+      style={{
+        position: "absolute",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "100%",
+      }}
+    ></canvas>
   );
 };
 
