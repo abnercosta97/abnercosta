@@ -1,22 +1,14 @@
-import {
-  Box,
-  Container,
-  Grid,
-  Typography,
-  styled,
-  useMediaQuery,
-  useTheme,
-} from "@mui/material";
+import { Box, Container, Grid, Typography, styled } from "@mui/material";
 import Avatar from "../../../../assets/images/avatar.png";
 import DownloadIcon from "@mui/icons-material/Download";
 import EmailIcon from "@mui/icons-material/Email";
 
 import StyledButton from "../../../../components/StyledButton/StyledButton";
-import AnimatedBackground from "../../../../components/AnimatedBackground/AnimatedBacground";
+//import AnimatedBackground from "../../../../components/AnimatedBackground/AnimatedBacground";
 
 const Hero = () => {
-  const theme = useTheme();
-  const isDesktop = useMediaQuery(theme.breakpoints.up("md"));
+  //const theme = useTheme();
+  //const isDesktop = useMediaQuery(theme.breakpoints.up("md"));
 
   const StyledHero = styled("div")(({ theme }) => ({
     backgroundColor: theme.palette.background.default,
@@ -24,7 +16,10 @@ const Hero = () => {
     display: "flex",
     alignItems: "center",
     [theme.breakpoints.up("xs")]: {
-      paddingTop: "350px",
+      paddingTop: "70px",
+    },
+    [theme.breakpoints.up("sm")]: {
+      paddingTop: "350",
     },
     [theme.breakpoints.up("md")]: {
       paddingTop: "0",
@@ -46,19 +41,6 @@ const Hero = () => {
 
   return (
     <StyledHero>
-      {isDesktop && (
-        <Box
-          position="absolute"
-          top={0}
-          left={0}
-          width="100%"
-          height="100%"
-          zIndex={1}
-          overflow="hidden"
-        >
-          <AnimatedBackground />
-        </Box>
-      )}
       <Container maxWidth={"lg"}>
         <Grid container spacing={2}>
           <Grid item xs={12} md={4}>
