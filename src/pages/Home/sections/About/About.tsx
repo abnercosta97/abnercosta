@@ -1,36 +1,42 @@
-import { Box, Container, Typography } from "@mui/material";
-import { styled } from "@mui/system";
+import React from "react";
+import { Box, Typography, Container, useTheme } from "@mui/material";
 
-const AboutSection = styled("div")(({ theme }) => ({
-  display: "flex",
-  alignItems: "center",
-  [theme.breakpoints.up("sm")]: {
-    paddingTop: "100",
-  },
-  [theme.breakpoints.up("md")]: {
-    paddingTop: "0",
-  },
-}));
-
-const About = () => {
+const About: React.FC = () => {
+  const theme = useTheme();
   return (
-    <AboutSection id="sobre">
-      <Container>
-        <Box p={10}>
-          <Typography variant="h4" color="primary" textAlign={"center"}>
-            Sobre mim
-          </Typography>
-          <Typography variant="h6" color="secondary" textAlign={"center"}>
-            Desenvolvedor Front-end com experiência em React.js, Next.js, Redux,
-            JavaScript, TypeScript, Styled Components, Material UI e consumo de
-            APIs REST. Apaixonado pelo desenvolvimento de componentes
-            reutilizáveis. Também possui experiência em projetos gerenciados por
-            Metodologias Ágeis. Formado em Sistemas de Informação e cursando
-            Especialização em Front-End na Digital House Brasil.
-          </Typography>
-        </Box>
+    <Box
+      id="sobre"
+      sx={{
+        backgroundColor: theme.palette.background.default, // substitua pela cor desejada
+        color: "primary.main",
+        padding: "2rem 0",
+      }}
+    >
+      <Container maxWidth="md">
+        <Typography
+          variant="h3"
+          sx={{ textAlign: "center", marginBottom: "1.5rem" }}
+        >
+          Sobre Mim
+        </Typography>
+        <Typography
+          variant="body1"
+          sx={{ textAlign: "justify" }}
+          color={"secondary.main"}
+        >
+          {/* Adicione seu texto aqui */}
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
+          lacinia odio vitae vestibulum vestibulum. Cras venenatis euismod
+          malesuada. Nullam ac erat ante. Fusce consectetur suscipit justo ut
+          posuere. Phasellus viverra nulla ut metus varius laoreet. Quisque
+          rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur
+          ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas
+          tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit
+          amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel,
+          luctus pulvinar, hendrerit id, lorem.
+        </Typography>
       </Container>
-    </AboutSection>
+    </Box>
   );
 };
 
