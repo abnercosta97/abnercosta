@@ -4,6 +4,8 @@ import About from "./sections/About/About";
 import { useMediaQuery } from "@mui/material";
 import AnimatedBackground from "../../components/AnimatedBackground/AnimatedBacground";
 import theme from "../../Theme";
+import Skills from "./sections/Skills/Skills";
+import Projects from "./sections/Projects/Projects";
 
 const Home = () => {
   const isDesktop = useMediaQuery(theme.breakpoints.up("md"));
@@ -13,6 +15,8 @@ const Home = () => {
       <Navbar />
       <Hero />
       <About />
+      <Skills />
+      <Projects />
     </>
   );
 };
