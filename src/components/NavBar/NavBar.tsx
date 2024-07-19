@@ -27,6 +27,7 @@ const NavBar = () => {
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
+
   const StyledToobar = styled(Toolbar)(({ theme }) => ({
     display: "flex",
     justifyContent: "space-evenly",
@@ -79,7 +80,12 @@ const NavBar = () => {
           >
             {pages.map((page) => (
               <MenuItem key={page} onClick={handleCloseNavMenu}>
-                <Typography textAlign="center">{page}</Typography>
+                <a
+                  href={`#${page.toLowerCase()}`}
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
+                  <Typography textAlign="center">{page}</Typography>
+                </a>
               </MenuItem>
             ))}
           </Menu>
@@ -98,7 +104,12 @@ const NavBar = () => {
               onClick={handleCloseNavMenu}
               sx={{ my: 2, color: "white", display: "block" }}
             >
-              {page}
+              <a
+                href={`#${page.toLowerCase()}`}
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                {page}
+              </a>
             </Button>
           ))}
         </Box>
