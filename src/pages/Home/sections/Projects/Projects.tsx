@@ -25,6 +25,7 @@ const Projetos: React.FC = () => {
 
   const StyledCard = styled(Card)({
     margin: theme.spacing(2),
+    backgroundColor: theme.palette.secondary.contrastText,
   });
 
   return (
@@ -44,10 +45,10 @@ const Projetos: React.FC = () => {
               <StyledCard>
                 <CardMedia
                   component="img"
-                  height="140"
+                  height="200"
                   alt={project.title}
                   image={project.image}
-                  sx={{ objectFit: "cover", margin: "auto" }}
+                  sx={{ objectFit: "cover" }}
                 />
                 <CardContent>
                   <Typography
