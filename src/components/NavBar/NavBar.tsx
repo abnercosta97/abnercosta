@@ -30,10 +30,9 @@ const NavBar = () => {
 
   const StyledToobar = styled(Toolbar)(({ theme }) => ({
     display: "flex",
-    justifyContent: "space-evenly",
+    justifyContent: "space-between",
     backgroundColor: theme.palette.background.default,
-    padding: "0",
-    margin: "0",
+    padding: "0 16px",
   }));
 
   const StyledImg = styled("img")(() => ({
@@ -41,7 +40,7 @@ const NavBar = () => {
   }));
 
   return (
-    <AppBar position="absolute">
+    <AppBar position="fixed">
       <StyledToobar>
         <Box sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}>
           <a href="/">
@@ -97,7 +96,13 @@ const NavBar = () => {
           </a>
         </Box>
 
-        <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+        <Box
+          sx={{
+            flexGrow: 1,
+            display: { xs: "none", md: "flex" },
+            justifyContent: "flex-end",
+          }}
+        >
           {pages.map((page) => (
             <Button
               key={page}
