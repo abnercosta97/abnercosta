@@ -104,18 +104,18 @@ const NavBar = () => {
           }}
         >
           {pages.map((page) => (
-            <Button
-              key={page}
-              onClick={handleCloseNavMenu}
-              sx={{ my: 2, color: "white", display: "block" }}
+            <a
+              href={`#${page.toLowerCase()}`}
+              style={{ textDecoration: "none", color: "inherit" }}
             >
-              <a
-                href={`#${page.toLowerCase()}`}
-                style={{ textDecoration: "none", color: "inherit" }}
+              <Button
+                key={page}
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: "white", display: "block" }}
               >
                 {page}
-              </a>
-            </Button>
+              </Button>
+            </a>
           ))}
         </Box>
       </StyledToobar>
