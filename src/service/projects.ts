@@ -19,10 +19,18 @@ export const projects: Project[] = [
   },
   {
     id: 2,
-    title: "Projeto 2",
-    description: "Descrição do Projeto 2",
-    link: "https://linkprojeto2.com",
-    image: "/imagesProjects/Projeto2.png",
+    title: "D-Tracker",
+    description: "Ferramenta de gerenciamento para o gestor de projetos.",
+    link: "https://github.com/DevsDomain/D-Traker",
+    image: "/imagesProjects/d-trackerLow.gif",
+  },
+  {
+    id: 3,
+    title: "IBGE Localidades App",
+    description:
+      "Aplicativo React TS que lista regiões, estados e mesorregiões do Brasil utilizando a API de localidades do IBGE.",
+    link: "https://github.com/abnercosta97/ibge-localidades-app",
+    image: "/imagesProjects/ibge-localidadesLow.gif",
   },
   // Adicione mais projetos conforme necessário
 ];

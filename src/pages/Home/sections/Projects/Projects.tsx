@@ -26,6 +26,17 @@ const Projetos: React.FC = () => {
   const StyledCard = styled(Card)({
     margin: theme.spacing(2),
     backgroundColor: theme.palette.secondary.contrastText,
+    display: "flex",
+    flexDirection: "column",
+    height: "100%",
+  });
+
+  const StyledCardContent = styled(CardContent)({
+    flexGrow: 1,
+  });
+
+  const StyledCardActions = styled(CardActions)({
+    justifyContent: "center",
   });
 
   return (
@@ -39,7 +50,7 @@ const Projetos: React.FC = () => {
           <CircularProgress />
         </Box>
       ) : (
-        <Grid container justifyContent="center">
+        <Grid container justifyContent="center" spacing={2}>
           {projectList.map((project) => (
             <Grid item xs={12} sm={6} md={4} key={project.id}>
               <StyledCard>
@@ -50,7 +61,7 @@ const Projetos: React.FC = () => {
                   image={project.image}
                   sx={{ objectFit: "cover" }}
                 />
-                <CardContent>
+                <StyledCardContent>
                   <Typography
                     variant="h5"
                     component="div"
@@ -61,12 +72,12 @@ const Projetos: React.FC = () => {
                   <Typography variant="body2" color={"secondary.main"}>
                     {project.description}
                   </Typography>
-                </CardContent>
-                <CardActions>
+                </StyledCardContent>
+                <StyledCardActions>
                   <Button size="small" href={project.link} target="_blank">
                     Ver mais
                   </Button>
-                </CardActions>
+                </StyledCardActions>
               </StyledCard>
             </Grid>
           ))}
