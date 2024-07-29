@@ -15,7 +15,7 @@ import Logo from "../../assets/images/logo.png";
 
 const FooterContainer = styled(Box)(({ theme }) => ({
   backgroundColor: theme.palette.primary.contrastText,
-  padding: theme.spacing(6, 0),
+  padding: theme.spacing(3, 0),
   marginTop: theme.spacing(8),
 }));
 
