@@ -6,6 +6,7 @@ import AnimatedBackground from "../../components/AnimatedBackground/AnimatedBacg
 import theme from "../../Theme";
 import Skills from "./sections/Skills/Skills";
 import Projects from "./sections/Projects/Projects";
+import Footer from "../../components/Footer/Footer";
 
 const Home = () => {
   const isDesktop = useMediaQuery(theme.breakpoints.up("md"));
@@ -17,6 +18,7 @@ const Home = () => {
       <About />
       <Skills />
       <Projects />
+      <Footer />
     </>
   );
 };
