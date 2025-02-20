@@ -1,4 +1,4 @@
-// src/data/projects.ts
+const baseUrl = import.meta.env.BASE_URL;
 
 export interface Project {
   id: number;
@@ -15,14 +15,14 @@ export const projects: Project[] = [
     description:
       "Aplicação Web para exibir últimos resultados das Loterias Caixas.",
     link: "https://github.com/abnercosta97/ativadade-praticaReact",
-    image: "/imagesProjects/loteria.png",
+    image: `${baseUrl}imagesProjects/loteria.png`,
   },
   {
     id: 2,
     title: "D-Tracker",
     description: "Ferramenta de gerenciamento para o gestor de projetos.",
     link: "https://github.com/DevsDomain/D-Traker",
-    image: "/imagesProjects/d-trackerLow.gif",
+    image: `${baseUrl}imagesProjects/d-trackerLow.gif`,
   },
   {
     id: 3,
@@ -30,7 +30,6 @@ export const projects: Project[] = [
     description:
       "Aplicativo React TS que lista regiões, estados e mesorregiões do Brasil utilizando a API de localidades do IBGE.",
     link: "https://github.com/abnercosta97/ibge-localidades-app",
-    image: "/imagesProjects/ibge-localidadesLow.gif",
+    image: `${baseUrl}imagesProjects/ibge-localidadesLow.gif`,
   },
-  // Adicione mais projetos conforme necessário
 ];
