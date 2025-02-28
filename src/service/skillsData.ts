@@ -10,6 +10,7 @@ const skillsData = [
   { name: "React", icon: "/icon/react-icon.png" },
   { name: "MongoDB", icon: "/icon/mongodb-icon.png" },
   { name: "PostgreSQL", icon: "/icon/psql-icon.png" },
+  //  { name: "Python", icon: "/icon/python-icon.png" },
 
   // Adicione mais habilidades conforme necessário
 ];
