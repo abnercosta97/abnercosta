@@ -30,7 +30,7 @@ export const projects: Project[] = [
     description:
       "A peer-to-peer web application that connects bicycle owners with renters, acting solely as an intermediary without handling payments.",
     link: "https://github.com/DevsDomain/D-Traker",
-    image: "/imagesProjects/d-trackerLow.gif",
+    image: "/imagesProjects/bike4you.png",
   },
   {
     id: 4,
