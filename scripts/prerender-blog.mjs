@@ -2,6 +2,11 @@ import fs from "node:fs";
 import path from "node:path";
 import { marked } from "marked";
 
+marked.use({
+  gfm: true,
+  renderer: { html: () => "" },
+});
+
 const contentDirectory = path.resolve("content/blog");
 const outputDirectory = path.resolve("dist");
 const template = fs.readFileSync(path.join(outputDirectory, "index.html"), "utf8");
@@ -9,7 +14,7 @@ const escape = (value) => value.replaceAll("&", "&amp;").replaceAll("<", "&lt;")
 
 const posts = fs.readdirSync(contentDirectory).filter((file) => file.endsWith(".md")).map((file) => {
   const source = fs.readFileSync(path.join(contentDirectory, file), "utf8");
-  const [, rawMetadata, body] = source.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
+  const [, rawMetadata, body] = source.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n([\s\S]*)$/);
   const metadata = Object.fromEntries(rawMetadata.split("\n").map((line) => {
     const separator = line.indexOf(":");
     return [line.slice(0, separator).trim(), line.slice(separator + 1).trim().replace(/^['"]|['"]$/g, "")];
@@ -17,25 +22,34 @@ const posts = fs.readdirSync(contentDirectory).filter((file) => file.endsWith(".
   return { ...metadata, body: body.trim() };
 }).filter((post) => post.draft !== "true");
 
-const render = (content, title, description, canonical) => template
+const render = (content, title, description, canonical, structuredData = null) => template
   .replace(/<title>[^<]*<\/title>/, `<title>${escape(title)}</title>`)
   .replace(/<meta name="description" content="[^"]*" \/>/, `<meta name="description" content="${escape(description)}" />`)
-  .replace("</head>", `<link rel="canonical" href="${canonical}"><style>html,body{margin:0;background:#161513;color:#fff;font-family:Arial,sans-serif}main{max-width:760px;margin:0 auto;padding:80px 24px;color:#fff}a{color:#9cd9f9}p,h1,h2,h3,li{line-height:1.8;color:#fff}</style></head>`)
+  .replace("</head>", `<link rel="canonical" href="${canonical}">${structuredData ? `<script type="application/ld+json">${JSON.stringify(structuredData).replaceAll("<", "\\u003c")}</script>` : ""}<style>html,body{margin:0;background:#161513;color:#fff;font-family:Arial,sans-serif}main{max-width:760px;margin:0 auto;padding:80px 24px;color:#fff}a{color:#9cd9f9}p,h1,h2,h3,h4,li{line-height:1.8;color:#fff}pre{overflow-x:auto;background:#0d0d0c;color:#d9f1ff;padding:16px;border-radius:4px}code{color:#d9f1ff}table{display:block;overflow-x:auto;border-collapse:collapse;width:100%}th,td{border:1px solid rgba(255,255,255,.2);padding:10px;text-align:left;min-width:140px}th{background:rgba(255,255,255,.1)}blockquote{border-left:4px solid #9cd9f9;padding-left:16px}</style></head>`)
   .replace('<div id="root"></div>', `<div id="root">${content}</div>`);
 
+const site = "https://abnercosta97.github.io";
 const base = "/abnercosta/";
 const listing = `<main><h1>Blog</h1><p>Reflexões sobre desenvolvimento, carreira e projetos.</p><ul>${posts.map((post) => `<li><a href="${base}blog/${post.slug}/"><h2>${escape(post.title)}</h2></a><p>${escape(post.summary)}</p></li>`).join("")}</ul></main>`;
 fs.mkdirSync(path.join(outputDirectory, "blog"), { recursive: true });
-fs.writeFileSync(path.join(outputDirectory, "blog/index.html"), render(listing, "Blog | Abner Costa", "Reflexões sobre desenvolvimento, carreira e projetos.", `${base}blog/`));
+fs.writeFileSync(path.join(outputDirectory, "blog/index.html"), render(listing, "Blog | Abner Costa", "Reflexões sobre desenvolvimento, carreira e projetos.", `${site}${base}blog/`));
 
 for (const post of posts) {
   const article = `<main><a href="${base}blog/">← Voltar para o blog</a><article><h1>${escape(post.title)}</h1><p>${escape(post.summary)}</p>${marked.parse(post.body)}</article></main>`;
   const directory = path.join(outputDirectory, "blog", post.slug);
   fs.mkdirSync(directory, { recursive: true });
-  fs.writeFileSync(path.join(directory, "index.html"), render(article, `${post.title} | Abner Costa`, post.summary, `${base}blog/${post.slug}/`));
+  fs.writeFileSync(path.join(directory, "index.html"), render(article, `${post.title} | Abner Costa`, post.summary, `${site}${base}blog/${post.slug}/`, {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title,
+    description: post.summary,
+    datePublished: post.publishedAt,
+    author: { "@type": "Person", name: "Abner Costa" },
+    mainEntityOfPage: `${site}${base}blog/${post.slug}/`,
+  }));
 }
 
 const urls = ["", "blog/", ...posts.map((post) => `blog/${post.slug}/`)];
-fs.writeFileSync(path.join(outputDirectory, "sitemap.xml"), `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${urls.map((url) => `<url><loc>https://abnercosta97.github.io${base}${url}</loc></url>`).join("")}</urlset>`);
+fs.writeFileSync(path.join(outputDirectory, "sitemap.xml"), `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${urls.map((url) => `<url><loc>${site}${base}${url}</loc></url>`).join("")}</urlset>`);
 
 console.log(`Páginas estáticas geradas: ${posts.length + 1}.`);

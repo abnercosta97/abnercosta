@@ -1,5 +1,10 @@
 import { marked } from "marked";
 
+marked.use({
+  gfm: true,
+  renderer: { html: () => "" },
+});
+
 export interface BlogPost {
   title: string;
   slug: string;

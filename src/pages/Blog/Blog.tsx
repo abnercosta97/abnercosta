@@ -1,10 +1,16 @@
+import { useEffect } from "react";
 import { Box, Card, CardContent, Chip, Container, Link, Stack, Typography } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
 import NavBar from "../../components/NavBar/NavBar";
 import Footer from "../../components/Footer/Footer";
 import { blogPosts } from "../../service/blog";
 
-const Blog = () => (
+const Blog = () => {
+  useEffect(() => {
+    document.title = "Blog | Abner Costa";
+  }, []);
+
+  return (
   <Box sx={{ minHeight: "100vh", display: "flex", flexDirection: "column", color: "#ffffff", backgroundColor: "#161513" }}>
     <NavBar />
     <Container component="main" maxWidth="md" sx={{ pt: 12, pb: 10, flexGrow: 1 }}>
@@ -43,6 +49,7 @@ const Blog = () => (
     </Container>
     <Footer />
   </Box>
-);
+  );
+};
 
 export default Blog;
