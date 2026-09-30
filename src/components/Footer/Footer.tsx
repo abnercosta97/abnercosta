@@ -59,8 +59,8 @@ const Footer = () => {
                 component={Link}
                 href="https://github.com/abnercosta97"
                 aria-label="GitHub"
-                 target="_blank"
-                 rel="noreferrer"
+                target="_blank"
+                rel="noreferrer"
                 color="primary"
               >
                 <GitHubIcon />
@@ -69,8 +69,8 @@ const Footer = () => {
                 component={Link}
                 href="https://linkedin.com/in/abnercosta97"
                 aria-label="LinkedIn"
-                 target="_blank"
-                 rel="noreferrer"
+                target="_blank"
+                rel="noreferrer"
                 color="primary"
               >
                 <LinkedInIcon />

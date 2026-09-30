@@ -2,6 +2,7 @@ import { createTheme, responsiveFontSizes } from "@mui/material";
 
 let theme = createTheme({
   palette: {
+    mode: "dark",
     primary: {
       main: "#ffffff",
     },
@@ -11,6 +12,10 @@ let theme = createTheme({
     background: {
       default: "#161513",
       paper: "#242321",
+    },
+    text: {
+      primary: "#ffffff",
+      secondary: "#C5C5C5",
     },
   },
   typography: {
@@ -43,6 +48,7 @@ let theme = createTheme({
           outline: "3px solid #9cd9f9",
           outlineOffset: 3,
         },
+        "*": { boxSizing: "border-box" },
       },
     },
   },

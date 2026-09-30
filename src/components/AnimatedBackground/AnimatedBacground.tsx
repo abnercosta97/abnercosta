@@ -28,10 +28,12 @@ const AnimatedBackground = () => {
       (first.x - second.x) ** 2 + (first.y - second.y) ** 2;
 
     const initialize = () => {
-      const width = window.innerWidth;
-      const height = window.innerHeight;
+      const bounds = canvas.parentElement?.getBoundingClientRect();
+      const width = Math.max(1, Math.floor(bounds?.width ?? window.innerWidth));
+      const height = Math.max(1, Math.floor(bounds?.height ?? window.innerHeight));
       canvas.width = width;
       canvas.height = height;
+      target.current = { x: width / 2, y: height / 2 };
       points.length = 0;
 
       for (let x = 0; x < width; x += width / 20) {
@@ -108,7 +110,11 @@ const AnimatedBackground = () => {
       }
     };
     const handleMouseMove = (event: MouseEvent) => {
-      target.current = { x: event.clientX, y: event.clientY };
+      const bounds = canvas.getBoundingClientRect();
+      target.current = {
+        x: event.clientX - bounds.left,
+        y: event.clientY - bounds.top,
+      };
     };
     const handleResize = () => {
       gsap.killTweensOf(points);
@@ -140,7 +146,14 @@ const AnimatedBackground = () => {
     <canvas
       ref={canvasRef}
       aria-hidden="true"
-      style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", pointerEvents: "none" }}
+      style={{
+        position: "absolute",
+        inset: 0,
+        width: "100%",
+        height: "100%",
+        pointerEvents: "none",
+        zIndex: 1,
+      }}
     />
   );
 };

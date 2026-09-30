@@ -47,7 +47,7 @@ const NavBar = () => {
   return (
     <AppBar component="header" position="fixed">
       <Box component="nav" aria-label="Navegação principal">
-      <StyledToolbar>
+        <StyledToolbar>
         <Box sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}>
           <a href={import.meta.env.BASE_URL} aria-label="Voltar para o início">
             <StyledImg src={Logo} alt="Abner Costa" />
@@ -84,10 +84,13 @@ const NavBar = () => {
             }}
           >
             {pages.map((page) => (
-              <MenuItem key={page.href} onClick={handleCloseNavMenu}>
-                <a href={page.href} style={{ textDecoration: "none", color: "inherit" }}>
-                  <Typography textAlign="center">{page.label}</Typography>
-                </a>
+              <MenuItem
+                component="a"
+                href={page.href}
+                key={page.href}
+                onClick={handleCloseNavMenu}
+              >
+                <Typography textAlign="center">{page.label}</Typography>
               </MenuItem>
             ))}
           </Menu>
@@ -118,7 +121,7 @@ const NavBar = () => {
             </Button>
           ))}
         </Box>
-      </StyledToolbar>
+        </StyledToolbar>
       </Box>
     </AppBar>
   );

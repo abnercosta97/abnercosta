@@ -55,7 +55,7 @@ const Projetos: React.FC = () => {
                 sx={{ objectFit: "cover" }}
               />
               <StyledCardContent>
-                <Typography variant="h3" component="h3" color={"primary.main"}>
+                <Typography variant="h5" component="h3" color={"primary.main"}>
                   {project.title}
                 </Typography>
                 <Typography variant="body2" color={"secondary.main"} sx={{ mb: 1 }}>

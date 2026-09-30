@@ -11,6 +11,26 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    id: "d-care",
+    title: "D-Care",
+    description:
+      "Plataforma que conecta idosos e suas famílias a cuidadores qualificados, com validação profissional, agendamento seguro e suporte assistido por IA. Atuei na arquitetura do banco, no desenvolvimento full stack dos fluxos de busca e agendamento e no chatbot de suporte.",
+    role: "Desenvolvimento full stack e banco de dados",
+    technologies: ["React", "TypeScript", "Node.js", "IA"],
+    link: "https://github.com/DevsDomain/D-care",
+    image: `${baseUrl}imagesProjects/dcare.gif`,
+  },
+  {
+    id: "d-firetrack",
+    title: "D-FireTrack",
+    description:
+      "Solução para mapeamento automático de cicatrizes de queimadas usando imagens de satélite, Deep Learning e processamento em nuvem. Contribuí com uma API STAC para consulta e download de imagens e com pipelines de processamento.",
+    role: "Desenvolvimento de API e pipelines",
+    technologies: ["Python", "API STAC", "Cloud", "Deep Learning"],
+    link: "https://github.com/DevsDomain/D-FireTrack",
+    image: `${baseUrl}imagesProjects/dfiretrack.gif`,
+  },
+  {
     id: "d-nutri",
     title: "D-Nutri",
     description:
@@ -58,5 +78,15 @@ export const projects: Project[] = [
     technologies: ["React", "JavaScript"],
     link: "https://github.com/abnercosta97/ativadade-praticaReact",
     image: `${baseUrl}imagesProjects/loteria.png`,
+  },
+  {
+    id: "expert-treinamentos",
+    title: "Expert Treinamentos",
+    description:
+      "Sistema web de apoio ao Scrum, com páginas informativas, templates de artefatos e guias de boas práticas para equipes ágeis.",
+    role: "Desenvolvimento front-end",
+    technologies: ["React", "JavaScript", "Scrum"],
+    link: "https://github.com/Our-team-fatec/Expert-Treinamentos",
+    image: `${baseUrl}imagesProjects/expert-treinamentos.gif`,
   },
 ];

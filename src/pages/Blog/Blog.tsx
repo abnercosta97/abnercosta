@@ -5,9 +5,9 @@ import Footer from "../../components/Footer/Footer";
 import { blogPosts } from "../../service/blog";
 
 const Blog = () => (
-  <Box sx={{ minHeight: "100vh", pt: 12 }}>
+  <Box sx={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
     <NavBar />
-    <Container component="main" maxWidth="md" sx={{ pb: 10 }}>
+    <Container component="main" maxWidth="md" sx={{ pt: 12, pb: 10, flexGrow: 1 }}>
       <Typography variant="h1" sx={{ mb: 2 }}>Blog</Typography>
       <Typography color="secondary.main" sx={{ mb: 5 }}>
         Reflexões sobre desenvolvimento, carreira e os projetos que estou construindo.
@@ -26,7 +26,15 @@ const Blog = () => (
               </Typography>
               <Typography color="secondary.main" sx={{ mb: 2 }}>{post.summary}</Typography>
               <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
-                {post.tags.map((tag) => <Chip key={tag} label={tag} size="small" />)}
+                {post.tags.map((tag) => (
+                  <Chip
+                    key={tag}
+                    label={tag}
+                    size="small"
+                    sx={{ color: "text.primary", borderColor: "divider" }}
+                    variant="outlined"
+                  />
+                ))}
               </Stack>
             </CardContent>
           </Card>

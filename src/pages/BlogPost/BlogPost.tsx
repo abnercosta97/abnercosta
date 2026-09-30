@@ -10,9 +10,9 @@ const BlogPost = () => {
 
   if (!post) {
     return (
-      <Box sx={{ minHeight: "100vh", pt: 14 }}>
+      <Box sx={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
         <NavBar />
-        <Container component="main" sx={{ pb: 10 }}>
+        <Container component="main" sx={{ pt: 14, pb: 10, flexGrow: 1 }}>
           <Typography variant="h1">Artigo não encontrado</Typography>
           <Link component={RouterLink} to="/blog">Voltar para o blog</Link>
         </Container>
@@ -22,17 +22,18 @@ const BlogPost = () => {
   }
 
   return (
-    <Box sx={{ minHeight: "100vh", pt: 12 }}>
+    <Box sx={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
       <NavBar />
-      <Container component="main" maxWidth="md" sx={{ pb: 10 }}>
+      <Container component="main" maxWidth="md" sx={{ pt: 12, pb: 10, flexGrow: 1 }}>
         <Link component={RouterLink} to="/blog" color="secondary.main">← Voltar para o blog</Link>
-        <Typography variant="h1" sx={{ mt: 4, mb: 2 }}>{post.title}</Typography>
-        <Typography color="secondary.main" sx={{ mb: 5 }}>{post.summary}</Typography>
-        <Box
-          component="article"
-          sx={{ "& h2": { mt: 5 }, "& p": { lineHeight: 1.8 }, "& a": { color: "primary.main" } }}
-          dangerouslySetInnerHTML={{ __html: post.html }}
-        />
+        <Box component="article" aria-labelledby="post-title" sx={{ color: "text.primary" }}>
+          <Typography id="post-title" variant="h1" sx={{ mt: 4, mb: 2 }}>{post.title}</Typography>
+          <Typography color="secondary.main" sx={{ mb: 5 }}>{post.summary}</Typography>
+          <Box
+            sx={{ "& h2": { mt: 5 }, "& p": { lineHeight: 1.8 }, "& a": { color: "primary.main" } }}
+            dangerouslySetInnerHTML={{ __html: post.html }}
+          />
+        </Box>
       </Container>
       <Footer />
     </Box>

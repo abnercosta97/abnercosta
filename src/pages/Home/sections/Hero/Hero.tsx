@@ -1,7 +1,9 @@
-import { Box, Container, Grid, Typography, styled } from "@mui/material";
+import { Box, Container, Grid, Typography, styled, useMediaQuery } from "@mui/material";
 import Avatar from "../../../../assets/images/avatar.png";
 import DownloadCVButton from "../../../../components/DownloadCVButton/DownloadCVButton";
 import ContactButton from "../../../../components/ContactButton/ContactButton";
+import AnimatedBackground from "../../../../components/AnimatedBackground/AnimatedBacground";
+import theme from "../../../../Theme";
 
 const StyledHero = styled("section")(({ theme }) => ({
   backgroundColor: theme.palette.background.default,
@@ -10,6 +12,7 @@ const StyledHero = styled("section")(({ theme }) => ({
   alignItems: "center",
   padding: theme.spacing(10, 0, 6),
   position: "relative",
+  overflow: "hidden",
 }));
 
 const StyledImg = styled("img")(({ theme }) => ({
@@ -28,8 +31,11 @@ const ContentWrapper = styled(Box)(() => ({
 }));
 
 const Hero = () => {
+  const isDesktop = useMediaQuery(theme.breakpoints.up("md"));
+
   return (
     <StyledHero>
+      {isDesktop && <AnimatedBackground />}
       <Container maxWidth={"lg"}>
         <Grid container spacing={2}>
           <Grid item xs={12} md={4}>
