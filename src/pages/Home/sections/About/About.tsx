@@ -5,16 +5,17 @@ const About: React.FC = () => {
   const theme = useTheme();
   return (
     <Box
+      component="section"
       id="sobre"
       sx={{
-        backgroundColor: theme.palette.background.default, // substitua pela cor desejada
+        backgroundColor: theme.palette.background.default,
         color: "primary.main",
         padding: "2rem 0",
       }}
     >
       <Container maxWidth="md">
         <Typography
-          variant="h3"
+          variant="h2"
           sx={{ textAlign: "center", marginBottom: "1.5rem" }}
         >
           Sobre Mim

@@ -13,7 +13,23 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import Logo from "../../assets/images/logo.png";
 
-const pages = ["Sobre", "Skills", "Projetos"];
+const pages = [
+  { label: "Sobre", href: `${import.meta.env.BASE_URL}#sobre` },
+  { label: "Skills", href: `${import.meta.env.BASE_URL}#skills` },
+  { label: "Projetos", href: `${import.meta.env.BASE_URL}#projetos` },
+  { label: "Blog", href: `${import.meta.env.BASE_URL}blog/` },
+];
+
+const StyledToolbar = styled(Toolbar)(({ theme }) => ({
+  display: "flex",
+  justifyContent: "space-between",
+  backgroundColor: theme.palette.background.default,
+  padding: "0 16px",
+}));
+
+const StyledImg = styled("img")({
+  width: "80px",
+});
 
 const NavBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
@@ -28,30 +44,20 @@ const NavBar = () => {
     setAnchorElNav(null);
   };
 
-  const StyledToobar = styled(Toolbar)(({ theme }) => ({
-    display: "flex",
-    justifyContent: "space-between",
-    backgroundColor: theme.palette.background.default,
-    padding: "0 16px",
-  }));
-
-  const StyledImg = styled("img")(() => ({
-    width: "80px",
-  }));
-
   return (
-    <AppBar position="fixed">
-      <StyledToobar>
+    <AppBar component="header" position="fixed">
+      <Box component="nav" aria-label="Navegação principal">
+      <StyledToolbar>
         <Box sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}>
-          <a href="/">
-            <StyledImg src={Logo} alt="Logo" />
+          <a href={import.meta.env.BASE_URL} aria-label="Voltar para o início">
+            <StyledImg src={Logo} alt="Abner Costa" />
           </a>
         </Box>
 
         <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
           <IconButton
             size="large"
-            aria-label="menu"
+            aria-label="Abrir menu"
             aria-controls="menu-appbar"
             aria-haspopup="true"
             onClick={handleOpenNavMenu}
@@ -78,12 +84,9 @@ const NavBar = () => {
             }}
           >
             {pages.map((page) => (
-              <MenuItem key={page} onClick={handleCloseNavMenu}>
-                <a
-                  href={`#${page.toLowerCase()}`}
-                  style={{ textDecoration: "none", color: "inherit" }}
-                >
-                  <Typography textAlign="center">{page}</Typography>
+              <MenuItem key={page.href} onClick={handleCloseNavMenu}>
+                <a href={page.href} style={{ textDecoration: "none", color: "inherit" }}>
+                  <Typography textAlign="center">{page.label}</Typography>
                 </a>
               </MenuItem>
             ))}
@@ -91,8 +94,8 @@ const NavBar = () => {
         </Box>
 
         <Box sx={{ display: { xs: "flex", md: "none" }, mr: 1 }}>
-          <a href="/">
-            <StyledImg src={Logo} alt="Logo" />
+          <a href={import.meta.env.BASE_URL} aria-label="Voltar para o início">
+            <StyledImg src={Logo} alt="Abner Costa" />
           </a>
         </Box>
 
@@ -104,21 +107,19 @@ const NavBar = () => {
           }}
         >
           {pages.map((page) => (
-            <a
-              href={`#${page.toLowerCase()}`}
-              style={{ textDecoration: "none", color: "inherit" }}
+            <Button
+              component="a"
+              href={page.href}
+              key={page.href}
+              onClick={handleCloseNavMenu}
+              sx={{ my: 2, color: "white", display: "block" }}
             >
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
-              >
-                {page}
-              </Button>
-            </a>
+              {page.label}
+            </Button>
           ))}
         </Box>
-      </StyledToobar>
+      </StyledToolbar>
+      </Box>
     </AppBar>
   );
 };

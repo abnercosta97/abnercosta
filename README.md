@@ -1,30 +1,33 @@
-# React + TypeScript + Vite
+# Portfólio Abner Costa
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+SPA React + TypeScript + Vite publicada no GitHub Pages em `/abnercosta/`. O portfólio usa MUI/Emotion, dados locais para projetos e um blog com artigos Markdown em `content/blog/`.
 
-Currently, two official plugins are available:
+## Desenvolvimento
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+```bash
+npm ci
+npm run dev
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+Validação completa:
+
+```bash
+npm run lint
+npx tsc -b
+npm run build
+```
+
+O build valida o frontmatter dos artigos e gera páginas estáticas em `dist/blog/`. O preview de produção pode ser iniciado com `npm run preview`.
+
+## Conteúdo
+
+- Projetos: `src/service/projects.ts`
+- Skills: `src/service/skillsData.ts`
+- Artigos: `content/blog/*.md`
+- Assets públicos: `public/`
+
+Artigos publicados precisam de `title`, `slug`, `summary`, `publishedAt`, `tags` e `draft` no frontmatter. Slugs duplicados ou inválidos interrompem o build.
+
+## Publicação
+
+`npm run deploy` executa lint, TypeScript e build antes de publicar `dist/` via `gh-pages`. Todos os recursos públicos devem respeitar a base `/abnercosta/`; não use caminhos absolutos iniciados por `/` para assets.

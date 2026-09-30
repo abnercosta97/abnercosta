@@ -3,23 +3,12 @@ import EmailIcon from "@mui/icons-material/Email";
 import StyledButton from "../StyledButton/StyledButton";
 
 const ContactButton = () => {
-  const handleContact = () => {
-    // Define o endereço de e-mail e o assunto do e-mail
-    const email = "abnerrodrigo.sc@gmail.com";
-    const subject = "Contato";
-    const body = "Olá, gostaria de entrar em contato.";
-
-    // Cria a URL mailto
-    const mailtoUrl = `mailto:${email}?subject=${encodeURIComponent(
-      subject
-    )}&body=${encodeURIComponent(body)}`;
-
-    // Abre o cliente de e-mail padrão
-    window.location.href = mailtoUrl;
-  };
+  const mailtoUrl = `mailto:abnerrodrigo.sc@gmail.com?subject=${encodeURIComponent(
+    "Contato"
+  )}&body=${encodeURIComponent("Olá, gostaria de entrar em contato.")}`;
 
   return (
-    <StyledButton onClick={handleContact}>
+    <StyledButton component="a" href={mailtoUrl}>
       <EmailIcon />
       <Typography>Contato</Typography>
     </StyledButton>

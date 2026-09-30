@@ -21,12 +21,12 @@ const FooterContainer = styled(Box)(({ theme }) => ({
 
 const Footer = () => {
   return (
-    <FooterContainer>
+    <FooterContainer component="footer">
       <Container maxWidth="lg">
         <Grid container spacing={4} justifyContent="center">
           <Grid item xs={12} md={4} textAlign="center">
-            <a href="/">
-              <img src={Logo} alt="Logo" style={{ width: "100px" }} />
+            <a href={import.meta.env.BASE_URL} aria-label="Voltar para o início">
+              <img src={Logo} alt="Abner Costa" style={{ width: "100px" }} />
             </a>
           </Grid>
           <Grid item xs={12} md={4}>
@@ -59,7 +59,8 @@ const Footer = () => {
                 component={Link}
                 href="https://github.com/abnercosta97"
                 aria-label="GitHub"
-                target="_blank"
+                 target="_blank"
+                 rel="noreferrer"
                 color="primary"
               >
                 <GitHubIcon />
@@ -68,7 +69,8 @@ const Footer = () => {
                 component={Link}
                 href="https://linkedin.com/in/abnercosta97"
                 aria-label="LinkedIn"
-                target="_blank"
+                 target="_blank"
+                 rel="noreferrer"
                 color="primary"
               >
                 <LinkedInIcon />

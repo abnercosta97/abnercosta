@@ -8,81 +8,78 @@ import {
   CardActions,
   CardMedia,
   Button,
-  CircularProgress,
   styled,
-  useTheme,
 } from "@mui/material";
 import { useProjects } from "../../../../hooks/useProjects";
 
-const Projetos: React.FC = () => {
-  const { projectList, loading } = useProjects();
-  const theme = useTheme();
+const StyledContainer = styled(Box)(({ theme }) => ({
+  padding: theme.spacing(8, 2),
+  textAlign: "center",
+  scrollMarginTop: theme.spacing(9),
+}));
 
-  const StyledContainer = styled(Box)({
-    padding: theme.spacing(4, 0),
-    textAlign: "center",
-  });
-
-  const StyledCard = styled(Card)({
-    margin: theme.spacing(2),
-    backgroundColor: theme.palette.secondary.contrastText,
+const StyledCard = styled(Card)(({ theme }) => ({
+    backgroundColor: theme.palette.background.paper,
     display: "flex",
     flexDirection: "column",
     height: "100%",
-  });
+  }));
 
-  const StyledCardContent = styled(CardContent)({
+const StyledCardContent = styled(CardContent)({
     flexGrow: 1,
   });
 
-  const StyledCardActions = styled(CardActions)({
+const StyledCardActions = styled(CardActions)({
     justifyContent: "center",
   });
 
+const Projetos: React.FC = () => {
+  const { projectList } = useProjects();
+
   return (
-    <StyledContainer id="projetos">
-      <Typography variant="h2" gutterBottom color={"primary.main"}>
+    <StyledContainer component="section" id="projetos" aria-labelledby="projects-title">
+      <Typography id="projects-title" variant="h2" gutterBottom color={"primary.main"}>
         Projetos
       </Typography>
 
-      {loading ? (
-        <Box sx={{ display: "flex", justifyContent: "center" }}>
-          <CircularProgress />
-        </Box>
-      ) : (
-        <Grid container justifyContent="center" spacing={2}>
-          {projectList.map((project) => (
-            <Grid item xs={12} sm={6} md={4} key={project.id}>
-              <StyledCard>
-                <CardMedia
-                  component="img"
-                  height="200"
-                  alt={project.title}
-                  image={project.image}
-                  sx={{ objectFit: "cover" }}
-                />
-                <StyledCardContent>
-                  <Typography
-                    variant="h5"
-                    component="div"
-                    color={"primary.main"}
-                  >
-                    {project.title}
-                  </Typography>
-                  <Typography variant="body2" color={"secondary.main"}>
-                    {project.description}
-                  </Typography>
-                </StyledCardContent>
-                <StyledCardActions>
-                  <Button size="small" href={project.link} target="_blank">
-                    Ver mais
-                  </Button>
-                </StyledCardActions>
-              </StyledCard>
-            </Grid>
-          ))}
-        </Grid>
-      )}
+      <Grid container justifyContent="center" spacing={3}>
+        {projectList.map((project) => (
+          <Grid item xs={12} sm={6} md={4} key={project.id}>
+            <StyledCard>
+              <CardMedia
+                component="img"
+                height="200"
+                alt={`Prévia do projeto ${project.title}`}
+                image={project.image}
+                loading="lazy"
+                sx={{ objectFit: "cover" }}
+              />
+              <StyledCardContent>
+                <Typography variant="h3" component="h3" color={"primary.main"}>
+                  {project.title}
+                </Typography>
+                <Typography variant="body2" color={"secondary.main"} sx={{ mb: 1 }}>
+                  {project.description}
+                </Typography>
+                <Typography variant="caption" color={"secondary.main"}>
+                  {project.role} · {project.technologies.join(" · ")}
+                </Typography>
+              </StyledCardContent>
+              <StyledCardActions>
+                <Button
+                  size="small"
+                  href={project.link}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={`Ver o projeto ${project.title} no GitHub`}
+                >
+                  Ver projeto
+                </Button>
+              </StyledCardActions>
+            </StyledCard>
+          </Grid>
+        ))}
+      </Grid>
     </StyledContainer>
   );
 };

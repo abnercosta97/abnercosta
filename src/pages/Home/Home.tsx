@@ -14,10 +14,12 @@ const Home = () => {
     <>
       {isDesktop && <AnimatedBackground />}
       <Navbar />
-      <Hero />
-      <About />
-      <Skills />
-      <Projects />
+      <main>
+        <Hero />
+        <About />
+        <Skills />
+        <Projects />
+      </main>
       <Footer />
     </>
   );

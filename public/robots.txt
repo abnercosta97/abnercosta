@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://abnercosta97.github.io/abnercosta/sitemap.xml
