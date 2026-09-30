@@ -5,21 +5,21 @@ import Footer from "../../components/Footer/Footer";
 import { blogPosts } from "../../service/blog";
 
 const Blog = () => (
-  <Box sx={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
+  <Box sx={{ minHeight: "100vh", display: "flex", flexDirection: "column", color: "#ffffff", backgroundColor: "#161513" }}>
     <NavBar />
     <Container component="main" maxWidth="md" sx={{ pt: 12, pb: 10, flexGrow: 1 }}>
-      <Typography variant="h1" sx={{ mb: 2 }}>Blog</Typography>
+      <Typography variant="h1" sx={{ mb: 2, color: "#ffffff" }}>Blog</Typography>
       <Typography color="secondary.main" sx={{ mb: 5 }}>
         Reflexões sobre desenvolvimento, carreira e os projetos que estou construindo.
       </Typography>
       <Stack spacing={3}>
         {blogPosts.map((post) => (
-          <Card key={post.slug} component="article" sx={{ backgroundColor: "background.paper" }}>
+          <Card key={post.slug} component="article" sx={{ backgroundColor: "#242321", color: "#ffffff" }}>
             <CardContent>
               <Typography variant="caption" color="secondary.main">
                 {new Intl.DateTimeFormat("pt-BR", { dateStyle: "long" }).format(new Date(`${post.publishedAt}T12:00:00`))}
               </Typography>
-              <Typography variant="h2" sx={{ fontSize: { xs: "1.6rem", sm: "2rem" }, my: 1 }}>
+              <Typography variant="h2" sx={{ fontSize: { xs: "1.6rem", sm: "2rem" }, my: 1, color: "#ffffff" }}>
                 <Link component={RouterLink} to={`/blog/${post.slug}`} color="primary.main" underline="hover">
                   {post.title}
                 </Link>

@@ -20,7 +20,7 @@ const posts = fs.readdirSync(contentDirectory).filter((file) => file.endsWith(".
 const render = (content, title, description, canonical) => template
   .replace(/<title>[^<]*<\/title>/, `<title>${escape(title)}</title>`)
   .replace(/<meta name="description" content="[^"]*" \/>/, `<meta name="description" content="${escape(description)}" />`)
-  .replace("</head>", `<link rel="canonical" href="${canonical}"><style>html,body{margin:0;background:#161513;color:#fff;font-family:Arial,sans-serif}main{max-width:760px;margin:0 auto;padding:80px 24px}a{color:#9cd9f9}p{line-height:1.8}</style></head>`)
+  .replace("</head>", `<link rel="canonical" href="${canonical}"><style>html,body{margin:0;background:#161513;color:#fff;font-family:Arial,sans-serif}main{max-width:760px;margin:0 auto;padding:80px 24px;color:#fff}a{color:#9cd9f9}p,h1,h2,h3,li{line-height:1.8;color:#fff}</style></head>`)
   .replace('<div id="root"></div>', `<div id="root">${content}</div>`);
 
 const base = "/abnercosta/";
