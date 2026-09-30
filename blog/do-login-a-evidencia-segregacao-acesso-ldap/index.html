@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/abnercosta/logo.svg" />
+    <meta name="viewport" content="initial-scale=1, width=device-width" />
+    <meta name="description" content="Como estruturar identidades, grupos, papéis, segregação de funções e trilhas de auditoria em ambientes que utilizam LDAP." />
+    <meta name="theme-color" content="#161513" />
+    <script type="application/ld+json">
+      {"@context":"https://schema.org","@type":"Person","name":"Abner Costa","jobTitle":"Desenvolvedor Full Stack","url":"https://abnercosta97.github.io/abnercosta/"}
+    </script>
+
+    <title>Do login à evidência: segregação de acesso, controle e auditoria com LDAP | Abner Costa</title>
+    <script type="module" crossorigin src="/abnercosta/assets/index-DEFMuSo3.js"></script>
+  <link rel="canonical" href="https://abnercosta97.github.io/abnercosta/blog/do-login-a-evidencia-segregacao-acesso-ldap/"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Do login à evidência: segregação de acesso, controle e auditoria com LDAP","description":"Como estruturar identidades, grupos, papéis, segregação de funções e trilhas de auditoria em ambientes que utilizam LDAP.","datePublished":"2026-09-30","author":{"@type":"Person","name":"Abner Costa"},"mainEntityOfPage":"https://abnercosta97.github.io/abnercosta/blog/do-login-a-evidencia-segregacao-acesso-ldap/"}</script><style>html,body{margin:0;background:#161513;color:#fff;font-family:Arial,sans-serif}main{max-width:760px;margin:0 auto;padding:80px 24px;color:#fff}a{color:#9cd9f9}p,h1,h2,h3,h4,li{line-height:1.8;color:#fff}pre{overflow-x:auto;background:#0d0d0c;color:#d9f1ff;padding:16px;border-radius:4px}code{color:#d9f1ff}table{display:block;overflow-x:auto;border-collapse:collapse;width:100%}th,td{border:1px solid rgba(255,255,255,.2);padding:10px;text-align:left;min-width:140px}th{background:rgba(255,255,255,.1)}blockquote{border-left:4px solid #9cd9f9;padding-left:16px}</style></head>
+  <body>
+    <div id="root"><main><a href="/abnercosta/blog/">← Voltar para o blog</a><article><h1>Do login à evidência: segregação de acesso, controle e auditoria com LDAP</h1><p>Como estruturar identidades, grupos, papéis, segregação de funções e trilhas de auditoria em ambientes que utilizam LDAP.</p><p>Um login bem-sucedido responde apenas a uma pergunta: quem está tentando entrar? Para proteger um sistema de verdade, ainda é necessário decidir o que essa identidade pode fazer, por quanto tempo, com qual aprovação e como a ação será verificada depois.</p>
+<p>Este artigo apresenta um modelo generalista para organizar identidade, autorização e auditoria em aplicações que usam um diretório LDAP. Os exemplos são didáticos e não representam uma infraestrutura específica.</p>
+<h2>O problema: autenticar não é autorizar</h2>
+<p>Autenticação e autorização são controles diferentes:</p>
+<ul>
+<li><strong>Autenticação</strong> verifica a identidade apresentada.</li>
+<li><strong>Autorização</strong> decide quais ações e recursos estão disponíveis.</li>
+<li><strong>Provisionamento</strong> concede, altera ou remove acessos.</li>
+<li><strong>Governança</strong> registra a finalidade, a aprovação e o prazo do acesso.</li>
+<li><strong>Auditoria</strong> preserva evidências do que foi tentado e executado.</li>
+</ul>
+<p>Confundir essas etapas costuma produzir sistemas em que qualquer pessoa autenticada recebe permissões excessivas. O diretório pode confirmar a identidade e informar seus grupos, mas a aplicação ainda precisa aplicar suas próprias regras.</p>
+<h2>Um modelo em camadas</h2>
+<p>Uma forma prática de organizar o controle é separar cinco camadas:</p>
+<ol>
+<li><strong>Identidade:</strong> pessoa, serviço ou automação que executa uma ação.</li>
+<li><strong>Autenticação:</strong> mecanismo usado para provar a identidade.</li>
+<li><strong>Autorização:</strong> decisão sobre a ação, o recurso e o contexto.</li>
+<li><strong>Governança:</strong> motivo, responsável, aprovação, validade e revisão.</li>
+<li><strong>Auditoria:</strong> registro confiável da decisão e do resultado.</li>
+</ol>
+<p>Essa separação facilita a investigação. Um usuário pode ter uma autenticação válida e ainda assim receber uma resposta de acesso negado porque não possui o papel necessário.</p>
+<h2>Da identidade à permissão</h2>
+<p>Em um modelo baseado em grupos e papéis, o fluxo pode ser representado assim:</p>
+<pre><code class="language-text">identidade → grupo → papel → permissão → recurso
+</code></pre>
+<p>O ideal é conceder acesso a grupos e papéis com finalidade clara, em vez de cadastrar permissões diretamente para cada pessoa. Isso reduz a quantidade de exceções e torna a revisão periódica viável.</p>
+<p>Um grupo deve ter pelo menos um responsável, uma finalidade documentada e uma regra para expiração ou recertificação. Grupos genéricos como “acesso total” dificultam a análise e tendem a acumular privilégios que ninguém mais consegue explicar.</p>
+<h2>Níveis de acesso e segregação de funções</h2>
+<p>Uma matriz simples ajuda a tornar conflitos visíveis:</p>
+<table>
+<thead>
+<tr>
+<th>Papel</th>
+<th>Pode</th>
+<th>Não pode</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Leitor</td>
+<td>Consultar recursos autorizados</td>
+<td>Alterar configurações</td>
+</tr>
+<tr>
+<td>Operador</td>
+<td>Executar tarefas operacionais delimitadas</td>
+<td>Aprovar o próprio acesso</td>
+</tr>
+<tr>
+<td>Aprovador</td>
+<td>Aprovar solicitações justificadas</td>
+<td>Provisionar o acesso aprovado</td>
+</tr>
+<tr>
+<td>Auditor</td>
+<td>Consultar evidências</td>
+<td>Operar o controle auditado</td>
+</tr>
+<tr>
+<td>Administrador</td>
+<td>Gerenciar políticas</td>
+<td>Excluir a própria trilha de auditoria</td>
+</tr>
+</tbody></table>
+<p>A segregação de funções, ou SoD, evita que uma única identidade controle todas as etapas de uma operação sensível. Solicitar, aprovar, provisionar, executar e auditar são responsabilidades diferentes.</p>
+<p>Há duas formas comuns de aplicar esse princípio:</p>
+<ul>
+<li><strong>SoD estática:</strong> papéis conflitantes não podem ser atribuídos à mesma identidade.</li>
+<li><strong>SoD dinâmica:</strong> a identidade pode possuir os papéis, mas não pode exercê-los na mesma transação ou janela de tempo.</li>
+</ul>
+<p>Em equipes pequenas, controles compensatórios podem reduzir o risco: dupla aprovação, acesso temporário, revisão independente posterior e alertas reforçados para ações privilegiadas.</p>
+<h2>Menor privilégio</h2>
+<p>Menor privilégio não significa apenas ter poucas permissões. O acesso deve ser:</p>
+<ul>
+<li>necessário para uma tarefa específica;</li>
+<li>limitado aos recursos necessários;</li>
+<li>limitado às ações necessárias;</li>
+<li>temporário quando o risco justificar;</li>
+<li>associado a uma identidade individual;</li>
+<li>testável e revogável;</li>
+<li>revisado em intervalos definidos.</li>
+</ul>
+<p>A autorização deve negar por padrão. Também deve ser testada negativamente: não basta verificar que o operador consegue executar sua tarefa; é preciso comprovar que ele não consegue aprovar a própria solicitação ou alterar uma evidência de auditoria.</p>
+<h2>Onde o LDAP participa</h2>
+<p>LDAP pode centralizar identidades, grupos e atributos para diferentes consumidores. Ele é útil para:</p>
+<ul>
+<li>autenticação centralizada;</li>
+<li>consulta de grupos;</li>
+<li>organização de identidades;</li>
+<li>aplicação de políticas de ciclo de vida;</li>
+<li>revogação central de novos acessos.</li>
+</ul>
+<p>LDAP não substitui a autorização da aplicação. Cada serviço consumidor ainda precisa mapear grupos para papéis locais, controlar sessões, registrar suas decisões e tratar situações como expiração, contas de emergência e indisponibilidade do diretório.</p>
+<h3>Grupos fictícios</h3>
+<p>Um desenho neutro poderia usar grupos como estes:</p>
+<pre><code class="language-text">cn=app-leitores,ou=grupos,dc=example,dc=org
+cn=app-operadores,ou=grupos,dc=example,dc=org
+cn=app-aprovadores,ou=grupos,dc=example,dc=org
+cn=app-auditores,ou=grupos,dc=example,dc=org
+cn=app-administradores,ou=grupos,dc=example,dc=org
+</code></pre>
+<p>E um mapeamento explícito para papéis da aplicação:</p>
+<pre><code class="language-text">app-leitores        → READER
+app-operadores      → OPERATOR
+app-aprovadores     → APPROVER
+app-auditores       → AUDITOR
+app-administradores → ADMIN
+</code></pre>
+<p>A conexão com o diretório deve usar TLS com validação de certificado. A conta técnica de consulta deve ser exclusiva, somente leitura, limitada aos atributos necessários e protegida por um mecanismo apropriado de gestão de segredos.</p>
+<h2>Autorização deve acontecer no servidor</h2>
+<p>Ocultar um botão na interface não protege uma operação. A regra precisa ser aplicada no servidor, próximo ao recurso que será alterado.</p>
+<p>Um exemplo didático de matriz de permissões:</p>
+<pre><code class="language-ts">type Role = &quot;READER&quot; | &quot;OPERATOR&quot; | &quot;APPROVER&quot; | &quot;AUDITOR&quot; | &quot;ADMIN&quot;;
+
+const permissions: Record&lt;Role, readonly string[]&gt; = {
+  READER: [&quot;record:read-own&quot;],
+  OPERATOR: [&quot;record:read&quot;, &quot;record:update&quot;],
+  APPROVER: [&quot;access-request:approve&quot;],
+  AUDITOR: [&quot;audit-log:read&quot;],
+  ADMIN: [&quot;policy:manage&quot;],
+};
+</code></pre>
+<p>Esse código é apenas ilustrativo. Em uma aplicação real, a decisão também deve considerar o recurso, o proprietário do dado, o estado da solicitação, o contexto da sessão e eventuais conflitos de função.</p>
+<p>Se o diretório ficar indisponível, o sistema não deve transformar a falha em permissão ampla. O comportamento seguro é negar a operação ou limitar o acesso a um modo previamente definido e auditado.</p>
+<h2>Ciclo de vida do acesso</h2>
+<p>O ciclo Joiner–Mover–Leaver ajuda a evitar permissões esquecidas:</p>
+<ul>
+<li><strong>Joiner:</strong> criar a identidade e conceder apenas o acesso inicial necessário.</li>
+<li><strong>Mover:</strong> remover direitos antigos antes de adicionar os novos quando a função mudar.</li>
+<li><strong>Leaver:</strong> revogar grupos, sessões, tokens, chaves e certificados no desligamento.</li>
+<li><strong>Recertificação:</strong> revisar periodicamente se cada acesso ainda tem finalidade.</li>
+<li><strong>Exceções:</strong> registrar justificativa, responsável e data de expiração.</li>
+</ul>
+<p>Remover uma entrada do diretório não garante, sozinho, que sessões já emitidas foram encerradas. A aplicação deve definir como tokens, sessões e credenciais derivadas serão invalidados.</p>
+<h2>Acesso privilegiado</h2>
+<p>Acesso administrativo deve ser nominal, justificado e temporário sempre que possível. Boas práticas incluem:</p>
+<ul>
+<li>conta administrativa separada da conta cotidiana;</li>
+<li>aprovação proporcional ao risco;</li>
+<li>elevação temporária;</li>
+<li>expiração automática;</li>
+<li>alerta quando o privilégio é usado;</li>
+<li>revisão posterior das ações executadas.</li>
+</ul>
+<p>Uma conta de emergência deve ter tratamento próprio: armazenamento protegido, uso alertado, acesso limitado e revisão obrigatória depois da utilização. Ela não deve se tornar um atalho permanente para contornar o processo normal.</p>
+<h2>Auditoria de usuários</h2>
+<p>Uma trilha de auditoria útil registra mais do que “login realizado”. Eventos importantes incluem:</p>
+<ul>
+<li>autenticação aceita ou rejeitada;</li>
+<li>concessão, alteração e revogação de acesso;</li>
+<li>inclusão ou remoção de grupos;</li>
+<li>aprovação ou rejeição de solicitações;</li>
+<li>uso de privilégio administrativo;</li>
+<li>alteração de políticas;</li>
+<li>leitura ou exportação de dados sensíveis;</li>
+<li>uso de acesso emergencial.</li>
+</ul>
+<p>Cada evento deve permitir responder quem fez o quê, quando, sobre qual recurso e com qual resultado. Sempre que possível, inclua identidade, tipo de identidade, origem, sessão, aprovação relacionada e um identificador de correlação.</p>
+<p>Logs não devem conter senhas, tokens, cookies, chaves ou dados pessoais desnecessários. O administrador que é auditado não deve controlar sozinho a alteração ou exclusão das próprias evidências.</p>
+<h2>Como validar o controle</h2>
+<p>Uma implementação confiável combina configuração, aprovação, execução e evidência. Testes mínimos incluem:</p>
+<ol>
+<li>Usuário sem grupo não recebe acesso.</li>
+<li>Operador não consegue aprovar a própria solicitação.</li>
+<li>Auditor possui leitura, mas não altera eventos.</li>
+<li>Remoção de um grupo impede novas autorizações.</li>
+<li>A falha do LDAP não concede permissões por padrão.</li>
+<li>Toda ação privilegiada gera um evento correlacionável.</li>
+<li>Permissões negadas também aparecem na trilha quando o risco exigir.</li>
+</ol>
+<p>Um teste pontual não prova que o controle continuará funcionando. A revisão periódica deve comparar a matriz aprovada, a configuração efetiva, os eventos registrados e os resultados dos testes negativos.</p>
+<h2>Checklist</h2>
+<ul>
+<li>Cada pessoa e automação possui uma identidade própria?</li>
+<li>Grupos têm finalidade, responsável e prazo de revisão?</li>
+<li>Existem permissões concedidas diretamente a indivíduos?</li>
+<li>Acesso privilegiado expira automaticamente?</li>
+<li>Mudança de função remove direitos antigos?</li>
+<li>Há testes de ações permitidas e negadas?</li>
+<li>O uso de emergência gera alerta e revisão?</li>
+<li>O operador consegue alterar a própria evidência?</li>
+<li>A revogação cobre sessões e credenciais derivadas?</li>
+<li>As permissões reais correspondem à matriz aprovada?</li>
+</ul>
+<h2>Conclusão</h2>
+<p>LDAP pode ser uma peça importante para centralizar identidades e grupos, mas não é o controle inteiro. O resultado depende da combinação entre autenticação, autorização no servidor, menor privilégio, segregação de funções, ciclo de vida e auditoria independente.</p>
+<p>O objetivo não é apenas impedir o acesso indevido. É conseguir explicar, depois de uma decisão, por que aquela identidade tinha aquela permissão, quem aprovou, quando ela deveria expirar e qual evidência foi preservada.</p>
+<h2>Referências</h2>
+<ul>
+<li><a href="https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html">OWASP Authorization Cheat Sheet</a></li>
+<li><a href="https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html">OWASP Logging Cheat Sheet</a></li>
+<li><a href="https://csrc.nist.gov/projects/access-control">NIST Access Control</a></li>
+<li><a href="https://www.rfc-editor.org/rfc/rfc4511">RFC 4511: Lightweight Directory Access Protocol</a></li>
+</ul>
+</article></main></div>
+  </body>
+</html>
