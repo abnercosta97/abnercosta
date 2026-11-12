@@ -15,6 +15,8 @@ import Logo from "../../assets/images/logo.png";
 
 const pages = [
   { label: "Sobre", href: `${import.meta.env.BASE_URL}#sobre` },
+  { label: "Experiência", href: `${import.meta.env.BASE_URL}#experiencia` },
+  { label: "Publicações", href: `${import.meta.env.BASE_URL}#publicacoes` },
   { label: "Skills", href: `${import.meta.env.BASE_URL}#skills` },
   { label: "Projetos", href: `${import.meta.env.BASE_URL}#projetos` },
   { label: "Blog", href: `${import.meta.env.BASE_URL}blog/` },
@@ -24,7 +26,10 @@ const StyledToolbar = styled(Toolbar)(({ theme }) => ({
   display: "flex",
   justifyContent: "space-between",
   backgroundColor: theme.palette.background.default,
-  padding: "0 16px",
+  padding: "0 12px",
+  [theme.breakpoints.up("sm")]: {
+    padding: "0 16px",
+  },
 }));
 
 const StyledImg = styled("img")({
@@ -48,13 +53,13 @@ const NavBar = () => {
     <AppBar component="header" position="fixed">
       <Box component="nav" aria-label="Navegação principal">
         <StyledToolbar>
-        <Box sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}>
+          <Box sx={{ display: { xs: "none", lg: "flex" }, mr: 1 }}>
           <a href={import.meta.env.BASE_URL} aria-label="Voltar para o início">
             <StyledImg src={Logo} alt="Abner Costa" />
           </a>
         </Box>
 
-        <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+         <Box sx={{ flexGrow: 1, display: { xs: "flex", lg: "none" } }}>
           <IconButton
             size="large"
             aria-label="Abrir menu"
@@ -79,9 +84,7 @@ const NavBar = () => {
             }}
             open={Boolean(anchorElNav)}
             onClose={handleCloseNavMenu}
-            sx={{
-              display: { xs: "block", md: "none" },
-            }}
+             sx={{ display: { xs: "block", lg: "none" } }}
           >
             {pages.map((page) => (
               <MenuItem
@@ -96,7 +99,7 @@ const NavBar = () => {
           </Menu>
         </Box>
 
-        <Box sx={{ display: { xs: "flex", md: "none" }, mr: 1 }}>
+         <Box sx={{ display: { xs: "flex", lg: "none" }, mr: 1 }}>
           <a href={import.meta.env.BASE_URL} aria-label="Voltar para o início">
             <StyledImg src={Logo} alt="Abner Costa" />
           </a>
@@ -105,7 +108,7 @@ const NavBar = () => {
         <Box
           sx={{
             flexGrow: 1,
-            display: { xs: "none", md: "flex" },
+             display: { xs: "none", lg: "flex" },
             justifyContent: "flex-end",
           }}
         >

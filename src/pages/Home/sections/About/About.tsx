@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Typography, Container, useTheme } from "@mui/material";
+import { Box, Container, Link, Typography, useTheme } from "@mui/material";
 
 const About: React.FC = () => {
   const theme = useTheme();
@@ -25,16 +25,20 @@ const About: React.FC = () => {
           sx={{ textAlign: "justify" }}
           color={"secondary.main"}
         >
-          Cristão, casado, pai da Elisa e do Eduardo. Estudante de
-          Desenvolvimento de Software Multiplataforma na FATEC Jacareí.
-          Apaixonado por matemática, tecnologia e inovação. Atualmente, estou me
-          tornando desenvolvedor full stack, com foco inicial em back-end. Atuo
-          como desenvolvedor de software no Programa Queimadas do INPE,
-          aplicando tecnologia e inovação em soluções para monitoramento
-          ambiental. Meu objetivo é continuar evoluindo na programação e
-          contribuir com produtos que resolvam problemas reais. Estou aberto a
-          novas oportunidades como desenvolvedor júnior ou pleno. Se você
-          gostou do meu trabalho, entre em contato.
+          Sou desenvolvedor de software na Datainfo, atuando no contexto do Programa
+          Queimadas do INPE. Trabalho na interseção entre sistemas, dados ambientais
+          e infraestrutura, contribuindo para soluções que transformam informações
+          geoespaciais em suporte à decisão.
+        </Typography>
+        <Typography sx={{ textAlign: "justify", mt: 2 }} color="secondary.main">
+          Minha experiência inclui desenvolvimento de APIs e aplicações web,
+          pipelines de dados, automação, DevOps, arquitetura de software,
+          arquitetura de dados e sustentação de ambientes Linux e cloud native.
+          Também sou coautor de trabalhos sobre Big Data, datasets para assistente
+          virtual e critérios geoespaciais para cálculo de área queimada.
+        </Typography>
+        <Typography sx={{ textAlign: "center", mt: 3 }} color="secondary.main">
+          Conheça minha <Link href="#experiencia">experiência</Link>, minhas <Link href="#publicacoes">publicações</Link> e os <Link href="#projetos">projetos</Link> que ajudam a contar essa trajetória.
         </Typography>
       </Container>
     </Box>

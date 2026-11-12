@@ -25,6 +25,11 @@ const posts = fs.readdirSync(contentDirectory).filter((file) => file.endsWith(".
 const render = (content, title, description, canonical, structuredData = null) => template
   .replace(/<title>[^<]*<\/title>/, `<title>${escape(title)}</title>`)
   .replace(/<meta name="description" content="[^"]*" \/>/, `<meta name="description" content="${escape(description)}" />`)
+  .replace(/<meta property="og:title" content="[^"]*" \/>/, `<meta property="og:title" content="${escape(title)}" />`)
+  .replace(/<meta property="og:description" content="[^"]*" \/>/, `<meta property="og:description" content="${escape(description)}" />`)
+  .replace(/<meta property="og:url" content="[^"]*" \/>/, `<meta property="og:url" content="${canonical}" />`)
+  .replace(/<meta name="twitter:title" content="[^"]*" \/>/, `<meta name="twitter:title" content="${escape(title)}" />`)
+  .replace(/<meta name="twitter:description" content="[^"]*" \/>/, `<meta name="twitter:description" content="${escape(description)}" />`)
   .replace("</head>", `<link rel="canonical" href="${canonical}">${structuredData ? `<script type="application/ld+json">${JSON.stringify(structuredData).replaceAll("<", "\\u003c")}</script>` : ""}<style>html,body{margin:0;background:#161513;color:#fff;font-family:Arial,sans-serif}main{max-width:760px;margin:0 auto;padding:80px 24px;color:#fff}a{color:#9cd9f9}p,h1,h2,h3,h4,li{line-height:1.8;color:#fff}pre{overflow-x:auto;background:#0d0d0c;color:#d9f1ff;padding:16px;border-radius:4px}code{color:#d9f1ff}table{display:block;overflow-x:auto;border-collapse:collapse;width:100%}th,td{border:1px solid rgba(255,255,255,.2);padding:10px;text-align:left;min-width:140px}th{background:rgba(255,255,255,.1)}blockquote{border-left:4px solid #9cd9f9;padding-left:16px}</style></head>`)
   .replace('<div id="root"></div>', `<div id="root">${content}</div>`);
 

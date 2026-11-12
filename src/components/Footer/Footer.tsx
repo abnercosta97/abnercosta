@@ -75,6 +75,16 @@ const Footer = () => {
               >
                 <LinkedInIcon />
               </IconButton>
+              <Link
+                href="https://lattes.cnpq.br/8131304530975933"
+                target="_blank"
+                rel="noreferrer"
+                color="primary"
+                underline="hover"
+                sx={{ display: "inline-block", ml: 1, verticalAlign: "middle" }}
+              >
+                Currículo Lattes
+              </Link>
             </Box>
           </Grid>
         </Grid>

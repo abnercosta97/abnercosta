@@ -4,9 +4,10 @@ import {
   Typography,
   Grid,
   Card,
+  Chip,
   CardContent,
-  CardMedia,
   Container,
+  Stack,
   useTheme,
 } from "@mui/material";
 
@@ -19,7 +20,8 @@ const Skills: React.FC = () => {
       component="section"
       id="skills"
       sx={{
-        padding: "2rem",
+        px: { xs: 1.5, sm: 2, md: 3 },
+        py: { xs: 6, md: 8 },
         backgroundColor: theme.palette.background.default,
         color: "#ffffff",
       }}
@@ -31,31 +33,34 @@ const Skills: React.FC = () => {
       >
         Conhecimentos
       </Typography>
-      <Grid container spacing={4} justifyContent="center">
+      <Grid container spacing={{ xs: 2, sm: 3 }} justifyContent="center" alignItems="stretch">
         {skillsData.map((skill) => (
-          <Grid item xs={12} sm={6} md={4} lg={3} key={skill.name}>
+          <Grid item xs={12} sm={6} lg={3} key={skill.name} sx={{ minWidth: 0 }}>
             <Card
               sx={{
                 backgroundColor: "#282828",
                 color: "#ffffff",
                 textAlign: "center",
-                padding: "1rem",
-                transition: "transform 0.3s",
-                "&:hover": {
-                  transform: "scale(1.05)",
+                height: "100%",
+                display: "flex",
+                flexDirection: "column",
+                transition: "transform 0.3s, box-shadow 0.3s",
+                "@media (hover: hover)": {
+                  "&:hover": {
+                    transform: "translateY(-4px)",
+                    boxShadow: "0 8px 24px rgba(0, 0, 0, 0.25)",
+                  },
                 },
               }}
             >
-              <CardMedia
-                component="img"
-                height="120"
-                image={skill.icon}
-                alt={skill.name}
-                loading="lazy"
-                sx={{ objectFit: "contain", margin: "auto" }}
-              />
-              <CardContent>
-                <Typography variant="h3" sx={{ fontSize: "1.1rem" }}>{skill.name}</Typography>
+              <CardContent sx={{ p: { xs: 2, sm: 2.5 }, flexGrow: 1, minWidth: 0 }}>
+                {skill.icon && <Box component="img" src={skill.icon} alt="" aria-hidden="true" sx={{ width: 56, height: 56, objectFit: "contain", mb: 1 }} />}
+                <Typography variant="h3" sx={{ fontSize: { xs: "1rem", sm: "1.1rem" }, mb: 1, overflowWrap: "anywhere" }}>{skill.name}</Typography>
+                <Stack direction="row" flexWrap="wrap" justifyContent="center" useFlexGap gap={0.75}>
+                  {skill.items.map((item) => (
+                    <Chip key={item} label={item} size="small" variant="outlined" sx={{ color: "secondary.main", borderColor: "rgba(197, 197, 197, 0.45)", maxWidth: "100%" }} />
+                  ))}
+                </Stack>
               </CardContent>
             </Card>
           </Grid>

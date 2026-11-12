@@ -42,7 +42,8 @@ let theme = createTheme({
     MuiCssBaseline: {
       styleOverrides: {
         html: { scrollBehavior: "smooth" },
-        body: { margin: 0 },
+        body: { margin: 0, overflowX: "hidden" },
+        "img, video": { maxWidth: "100%" },
         "section[id]": { scrollMarginTop: "80px" },
         "a:focus-visible, button:focus-visible": {
           outline: "3px solid #9cd9f9",

@@ -16,7 +16,7 @@ const Blog = () => {
     <Container component="main" maxWidth="md" sx={{ pt: 12, pb: 10, flexGrow: 1 }}>
       <Typography variant="h1" sx={{ mb: 2, color: "#ffffff" }}>Blog</Typography>
       <Typography color="secondary.main" sx={{ mb: 5 }}>
-        Reflexões sobre desenvolvimento, carreira e os projetos que estou construindo.
+        Artigos simples sobre software, dados ambientais, sistemas geoespaciais e infraestrutura.
       </Typography>
       <Stack spacing={3}>
         {blogPosts.map((post) => (
