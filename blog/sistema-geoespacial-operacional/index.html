@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/abnercosta/logo.svg" />
+    <meta name="viewport" content="initial-scale=1, width=device-width" />
+    <meta name="description" content="Uma visão conceitual das camadas que conectam dados, processamento, aplicações e publicação em sistemas geoespaciais." />
+    <meta name="theme-color" content="#161513" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Abner Costa" />
+    <meta property="og:title" content="O que existe por trás de um sistema geoespacial operacional? | Abner Costa" />
+    <meta property="og:description" content="Uma visão conceitual das camadas que conectam dados, processamento, aplicações e publicação em sistemas geoespaciais." />
+    <meta property="og:url" content="https://abnercosta97.github.io/abnercosta/blog/sistema-geoespacial-operacional/" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="O que existe por trás de um sistema geoespacial operacional? | Abner Costa" />
+    <meta name="twitter:description" content="Uma visão conceitual das camadas que conectam dados, processamento, aplicações e publicação em sistemas geoespaciais." />
+    <script type="application/ld+json">
+      {"@context":"https://schema.org","@type":"Person","name":"Abner Costa","jobTitle":"Desenvolvedor de Sistemas e Cientista de Dados","description":"Desenvolvedor de software com atuação em dados ambientais, sistemas geoespaciais, DevOps e infraestrutura.","url":"https://abnercosta97.github.io/abnercosta/","sameAs":["https://github.com/abnercosta97","https://www.linkedin.com/in/abnercosta97","https://lattes.cnpq.br/8131304530975933"]}
+    </script>
+
+    <title>O que existe por trás de um sistema geoespacial operacional? | Abner Costa</title>
+    <script type="module" crossorigin src="/abnercosta/assets/index-DRCSCan3.js"></script>
+  <link rel="canonical" href="https://abnercosta97.github.io/abnercosta/blog/sistema-geoespacial-operacional/"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"O que existe por trás de um sistema geoespacial operacional?","description":"Uma visão conceitual das camadas que conectam dados, processamento, aplicações e publicação em sistemas geoespaciais.","datePublished":"2026-11-06","author":{"@type":"Person","name":"Abner Costa"},"mainEntityOfPage":"https://abnercosta97.github.io/abnercosta/blog/sistema-geoespacial-operacional/"}</script><style>html,body{margin:0;background:#161513;color:#fff;font-family:Arial,sans-serif}main{max-width:760px;margin:0 auto;padding:80px 24px;color:#fff}a{color:#9cd9f9}p,h1,h2,h3,h4,li{line-height:1.8;color:#fff}pre{overflow-x:auto;background:#0d0d0c;color:#d9f1ff;padding:16px;border-radius:4px}code{color:#d9f1ff}table{display:block;overflow-x:auto;border-collapse:collapse;width:100%}th,td{border:1px solid rgba(255,255,255,.2);padding:10px;text-align:left;min-width:140px}th{background:rgba(255,255,255,.1)}blockquote{border-left:4px solid #9cd9f9;padding-left:16px}</style></head>
+  <body>
+    <div id="root"><main><a href="/abnercosta/blog/">← Voltar para o blog</a><article><h1>O que existe por trás de um sistema geoespacial operacional?</h1><p>Uma visão conceitual das camadas que conectam dados, processamento, aplicações e publicação em sistemas geoespaciais.</p><p>Um sistema geoespacial operacional é mais do que um mapa na tela. Para entregar informação útil, ele precisa receber dados, processá-los, armazená-los, disponibilizá-los e continuar funcionando quando uma etapa falha.</p>
+<h2>Camadas de uma solução</h2>
+<p>Uma forma simples de visualizar esse tipo de sistema é separar suas responsabilidades:</p>
+<ol>
+<li><strong>Dados de entrada:</strong> imagens, focos, limites territoriais e outras fontes.</li>
+<li><strong>Processamento:</strong> rotinas que validam, transformam e geram produtos.</li>
+<li><strong>Armazenamento:</strong> bancos, arquivos e camadas geoespaciais.</li>
+<li><strong>Serviços:</strong> APIs, serviços de mapas e mecanismos de exportação.</li>
+<li><strong>Aplicação:</strong> telas, filtros, gráficos e ferramentas de consulta.</li>
+<li><strong>Operação:</strong> logs, métricas, alertas, documentação e suporte.</li>
+</ol>
+<p>Quando essas responsabilidades estão misturadas, uma mudança em uma rotina de processamento pode afetar a interface ou a publicação. A separação não elimina todos os problemas, mas reduz o impacto das mudanças.</p>
+<h2>A aplicação é apenas uma parte</h2>
+<p>O usuário costuma enxergar o mapa ou o gráfico. A equipe precisa cuidar também de tarefas invisíveis: atualização de dados, cache, tratamento de falhas, controle de acesso e consistência entre versões.</p>
+<p>Uma boa pergunta para cada produto é:</p>
+<blockquote>
+<p>Se o processamento falhar hoje, como saberemos, como comunicaremos e como recuperaremos o resultado?</p>
+</blockquote>
+<p>Essa pergunta leva a decisões sobre observabilidade, reprocessamento e documentação.</p>
+<h2>Reprodutibilidade</h2>
+<p>Produtos ambientais podem ser atualizados com frequência. Por isso, é importante registrar a origem dos dados, o período, a versão do código e os parâmetros utilizados.</p>
+<p>Automação ajuda a reduzir diferenças entre ambientes. Documentação ajuda outra pessoa a compreender o processo. Controle de versão ajuda a identificar o que mudou.</p>
+<h2>Segurança e disponibilidade</h2>
+<p>Sistemas que apoiam decisões precisam limitar acessos administrativos, preservar evidências e evitar que uma falha em um componente conceda permissões amplas. A segurança deve existir no servidor e na infraestrutura, não apenas na interface.</p>
+<p>Disponibilidade também envolve comunicação. Quando um produto está temporariamente indisponível, uma mensagem clara é melhor do que apresentar dados incompletos sem contexto.</p>
+<h2>Conclusão</h2>
+<p>Construir um sistema geoespacial operacional exige combinar desenvolvimento, dados, infraestrutura e operação. O resultado mais importante não é apenas visualizar um mapa, mas entregar uma informação rastreável, compreensível e útil para a finalidade definida.</p>
+</article></main></div>
+  </body>
+</html>
