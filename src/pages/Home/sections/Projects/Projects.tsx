@@ -34,6 +34,8 @@ const StyledCardContent = styled(CardContent)({
 
 const StyledCardActions = styled(CardActions)({
     justifyContent: "center",
+    flexWrap: "wrap",
+    gap: 1,
   });
 
 const Projetos: React.FC = () => {
@@ -82,10 +84,20 @@ const Projetos: React.FC = () => {
                   href={project.link}
                   target="_blank"
                   rel="noreferrer"
-                   aria-label={`${project.linkLabel ?? "Ver projeto"}: ${project.title}`}
+                  aria-label={`${project.linkLabel ?? "Ver projeto"}: ${project.title}`}
                 >
                   {project.linkLabel ?? "Ver projeto"}
                 </Button>
+                {project.repository && (
+                  <Button size="small" href={project.repository} target="_blank" rel="noreferrer" aria-label={`${project.repositoryLabel ?? "Código"}: ${project.title}`}>
+                    {project.repositoryLabel ?? "Código"}
+                  </Button>
+                )}
+                {project.certificate && (
+                  <Button size="small" href={project.certificate} target="_blank" rel="noreferrer" aria-label={`${project.certificateLabel ?? "Certificado"}: ${project.title}`}>
+                    {project.certificateLabel ?? "Certificado"}
+                  </Button>
+                )}
               </StyledCardActions>
             </StyledCard>
           </Grid>

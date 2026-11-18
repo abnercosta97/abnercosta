@@ -8,9 +8,36 @@ export interface Project {
   link: string;
   linkLabel?: string;
   image?: string;
+  repository?: string;
+  repositoryLabel?: string;
+  certificate?: string;
+  certificateLabel?: string;
 }
 
 export const projects: Project[] = [
+  {
+    id: "alicerce",
+    title: "App Alicerce",
+    description: "Aplicação web do projeto Alicerce, disponível para acesso online.",
+    role: "Desenvolvimento de aplicação web",
+    technologies: ["Aplicação web", "Produto digital"],
+    link: "https://oalicerce.vercel.app/",
+    linkLabel: "Abrir aplicação",
+  },
+  {
+    id: "nasa-space-apps-2026",
+    title: "Galactic Problem Solver — NASA Space Apps Challenge",
+    description:
+      "Projeto desenvolvido em equipe durante o NASA Space Apps Challenge 2026, com aplicação web apresentada no hackathon.",
+    role: "Participação em hackathon e desenvolvimento em equipe",
+    technologies: ["NASA Space Apps", "Hackathon", "Aplicação web"],
+    link: "https://luk14236-space-apps-teu-2026.hf.space/",
+    linkLabel: "Abrir aplicação",
+    repository: "https://github.com/luk14236/space_apps_2026_team_teu",
+    repositoryLabel: "Ver código",
+    certificate: `${baseUrl}certificado-nasa-space-apps.jpeg`,
+    certificateLabel: "Ver certificado",
+  },
   {
     id: "sala-situacao",
     title: "Sala de Situação do Programa Queimadas",
